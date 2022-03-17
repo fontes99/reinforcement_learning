@@ -1,5 +1,5 @@
-from SearchAlgorithms import BuscaProfundidadeIterativa
-from Graph import State
+from utils.SearchAlgorithms import BuscaProfundidadeIterativa
+from utils.Graph import State
 
 class ProblemSpecification(State):
 

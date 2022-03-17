@@ -1,7 +1,7 @@
-from SearchAlgorithms import BuscaLargura
-from SearchAlgorithms import BuscaProfundidade
-from SearchAlgorithms import BuscaProfundidadeIterativa
-from Graph import State
+from utils.SearchAlgorithms import BuscaLargura
+from utils.SearchAlgorithms import BuscaProfundidade
+from utils.SearchAlgorithms import BuscaProfundidadeIterativa
+from utils.Graph import State
 
 class VacuumWorld3Room(State):
 

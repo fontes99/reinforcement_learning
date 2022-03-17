@@ -1,7 +1,7 @@
-from SearchAlgorithms import BuscaLargura
-from SearchAlgorithms import BuscaProfundidade
-from SearchAlgorithms import BuscaProfundidadeIterativa
-from VacuumWorld import VacuumWorld
+from utils.SearchAlgorithms import BuscaLargura
+from utils.SearchAlgorithms import BuscaProfundidade
+from utils.SearchAlgorithms import BuscaProfundidadeIterativa
+from scripts.VacuumWorld import VacuumWorld
 
 def test_largura():
     state = VacuumWorld('left', True, False, '')

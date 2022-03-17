@@ -1,5 +1,5 @@
-from SearchAlgorithms import BuscaCustoUniforme
-from Graph import State
+from utils.SearchAlgorithms import BuscaCustoUniforme
+from utils.Graph import State
 
 class U2(State):
 

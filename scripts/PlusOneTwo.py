@@ -1,10 +1,10 @@
-from SearchAlgorithms import BuscaLargura
-from SearchAlgorithms import BuscaProfundidade
-from SearchAlgorithms import BuscaProfundidadeIterativa
-from SearchAlgorithms import BuscaCustoUniforme
-from SearchAlgorithms import BuscaGananciosa
-from SearchAlgorithms import AEstrela
-from Graph import State
+from utils.SearchAlgorithms import BuscaLargura
+from utils.SearchAlgorithms import BuscaProfundidade
+from utils.SearchAlgorithms import BuscaProfundidadeIterativa
+from utils.SearchAlgorithms import BuscaCustoUniforme
+from utils.SearchAlgorithms import BuscaGananciosa
+from utils.SearchAlgorithms import AEstrela
+from utils.Graph import State
 
 #
 # Initial state: 1
