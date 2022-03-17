@@ -1,5 +1,5 @@
 from collections import deque
-from utils.Graph import Node
+from Graph import Node
 import logging
 logging.basicConfig(filename='search_algorithms.log', level=logging.DEBUG)
 

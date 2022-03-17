@@ -23,10 +23,15 @@ class PlusOneTwo(State):
         pass
     
     def sucessors(self):
-        pass
+        suc = []
+
+        suc.append(PlusOneTwo(self.number+2, '2', self.Goal))
+        suc.append(PlusOneTwo(self.number+1, '1', self.Goal))
+
+        return suc
     
     def is_goal(self):
-        return False
+        return self.number == self.Goal
     
     def description(self):
         return "Problema simples com operadores de soma 1 e soma 2. Estados representados apenas por um numero"

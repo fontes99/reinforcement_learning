@@ -22,19 +22,19 @@ class KnuthProblem(State):
     def sucessors(self):
         sucessors = []
 
-        if self.number > self.Goal**2:
+        if self.number >= self.Goal**2:
             sucessors.append(KnuthProblem(self.number**(1/2), 'sqrt', self.Goal))
 
-        elif type(self.number) == int:
+        if type(self.number) == int and self.number <= self.Goal**2:
             sucessors.append(KnuthProblem(factorial(self.number), 'factorial', self.Goal))
 
-        else:
+        if type(self.number) != int:
             sucessors.append(KnuthProblem(int(self.number), 'round_down', self.Goal))
 
         return sucessors
     
     def is_goal(self):
-        return False
+        return self.number == self.Goal
     
     def description(self):
         return "Problema simples com operadores de soma 1 e soma 2. Estados representados apenas por um numero"

@@ -3,9 +3,9 @@
 # be any number between 4 and 10.
 #
 
-from utils.SearchAlgorithms import SubidaMontanha
-from utils.SearchAlgorithms import SubidaMontanha2
-from utils.Graph import State
+from SearchAlgorithms import SubidaMontanha
+from SearchAlgorithms import SubidaMontanha2
+from Graph import State
 from random import randrange
 import numpy as np
 import random
