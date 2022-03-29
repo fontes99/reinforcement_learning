@@ -2,6 +2,7 @@ import numpy as np
 import SearchAlgorithms as sa
 from Graph import State
 from copy import deepcopy
+import math as Math
 
 class Puzzle(State):
 
@@ -14,16 +15,16 @@ class Puzzle(State):
             [7, 6, 5]
         ]
     
-    def find_0(self, v):
+    def find_N(self, v, n):
         for line in range(3):
             for col in range(3):
-                if (v[line][col] == 0):
+                if (v[line][col] == n):
                     return line, col 
     
     def sucessors(self):
         sucessors = []
         
-        x, y = self.find_0(self.puzzle)
+        x, y = self.find_N(self.puzzle, 0)
         
         # Move UP
         if x != 0 and self.operator != 'DOWN':
@@ -71,7 +72,16 @@ class Puzzle(State):
         return 1
 
     def h(self):
-        return 1 #implementar manhattan
+
+        h = 0
+
+        for n in range(9):
+            px, py = self.find_N(self.puzzle, n)
+            gx, gy = self.find_N(self.goal, n)
+
+            h += abs(px - gx) + abs(py - gy)
+        
+        return h
 
     def print(self):
         return str(self.operator)

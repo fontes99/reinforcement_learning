@@ -1,23 +1,30 @@
 import numpy as np
 from copy import deepcopy
 
+def find_N(v, n):
+    for line in range(3):
+        for col in range(3):
+            if (v[line][col] == n):
+                return line, col
+
 goal = [
     [1, 2, 3],
     [8, 0, 4],
     [7, 6, 5]
 ]
 
-def find_0(v):
-    for line in range(3):
-        for col in range(3):
-            if (v[line][col] == 0):
-                return line, col 
+init_state = [
+    [8, 1, 3],
+    [0, 7, 2],
+    [6, 5, 4]
+]
 
-mv = deepcopy(goal)
-mv[1][1], mv[0][1] = mv[0][1], mv[1][1]
+h = 0
 
-print(goal)
-print(mv)
-puz = str([n for line in goal for n in line])
-go = str([n for line in goal for n in line])
-print(puz == go)
+for n in range(9):
+    px, py = find_N(init_state, n)
+    gx, gy = find_N(goal, n)
+
+    h += abs(px - gx) + abs(py - gy)
+
+print(h)
