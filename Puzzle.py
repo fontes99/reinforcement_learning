@@ -22,8 +22,9 @@ class Puzzle(State):
                     return line, col 
     
     def sucessors(self):
+
         sucessors = []
-        
+
         x, y = self.find_N(self.puzzle, 0)
         
         # Move UP
@@ -89,27 +90,27 @@ class Puzzle(State):
     def env(self):
         return str([n for line in self.puzzle for n in line])
 
-# As próximas duas funções foram retiradas de https://www.geeksforgeeks.org/check-instance-8-puzzle-solvable/
-# A utility function to count
-# inversions in given array 'arr[]'
-def getInvCount(arr):
-    inv_count = 0
-    empty_value = -1
-    for i in range(0, 9):
-        for j in range(i + 1, 9):
-            if arr[j] != empty_value and arr[i] != empty_value and arr[i] > arr[j]:
-                inv_count += 1
-    return inv_count
+    # As próximas duas funções foram retiradas de https://www.geeksforgeeks.org/check-instance-8-puzzle-solvable/
+    # A utility function to count
+    # inversions in given array 'arr[]'
+    def getInvCount(self, arr):
+        inv_count = 0
+        empty_value = -1
+        for i in range(0, 9):
+            for j in range(i + 1, 9):
+                if arr[j] != empty_value and arr[i] != empty_value and arr[i] > arr[j]:
+                    inv_count += 1
+        return inv_count
 
-# This function returns true
-# if given 8 puzzle is solvable.
-def isSolvable(puzzle) :
- 
-    # Count inversions in given 8 puzzle
-    inv_count = getInvCount([j for sub in puzzle for j in sub])
- 
-    # return true if inversion count is even.
-    return (inv_count % 2 == 0)
+    # This function returns true
+    # if given 8 puzzle is solvable.
+    def isSolvable(self, puzzle) :
+    
+        # Count inversions in given 8 puzzle
+        inv_count = self.getInvCount([j for sub in puzzle for j in sub])
+    
+        # return true if inversion count is even.
+        return (inv_count % 2 == 0)
 
 def main():
 
@@ -119,18 +120,14 @@ def main():
         [6, 5, 4]
     ]
 
-    if isSolvable(init_state):
-            
-        state = Puzzle(init_state, '')
-        algorithm = sa.AEstrela()
+    state = Puzzle(init_state, '')
+    algorithm = sa.AEstrela()
 
-        print('Buscando...')
-        result = algorithm.search(state)
-        if result != None:
-            print('Achou!')
-            print(result.show_path())
-        else:
-            print('Nao achou solucao')
+    print('Buscando...')
+    result = algorithm.search(state)
+    if result != None:
+        print('Achou!')
+        print(result.show_path())
     else:
         print('Puzzle impossível')
 
