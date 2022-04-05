@@ -2,10 +2,18 @@ import gym
 env = gym.make("Taxi-v3").env
 
 state = env.reset()
+s = env.decode(state)
+taxi_row, taxi_col, pass_idx, dest_idx = s
+
+
+c = env.desc[1:-1]
+taxi_col = (taxi_col*2)+1
+ 
+print(c)
 env.render()
-print(env.desc)
-taxi_row, taxi_col, pass_idx, dest_idx = env.decode(state)
 print(taxi_row, taxi_col, pass_idx, dest_idx)
+print(c[taxi_row][taxi_col].decode("utf-8") )
+
 
 # The filled square represents the taxi, which is yellow without a passenger and green with a passenger.
 # The pipe ("|") represents a wall which the taxi cannot cross.
