@@ -12,10 +12,10 @@ class MeuTaxi(State):
         
         self.taxi_row, self.taxi_col, self.pass_idx, self.dest_idx = self.s
         
-        self.taxi_col = (self.taxi_col*2)+1
+        self.taxi_col_r = (self.taxi_col*2)+1
         self.desc = desc[1:-1]
         
-        self.here = self.desc[self.taxi_row][self.taxi_col].decode("utf-8") 
+        self.here = self.desc[self.taxi_row][self.taxi_col_r].decode("utf-8") 
 
         self.loc = {
             0 : 'R',
@@ -37,20 +37,23 @@ class MeuTaxi(State):
         # 5 = dropoff
         
         #go south = está fora da ultima linha
+        if self.taxi_row < 4:
+            sucessors.append(MeuTaxi(self.desc, [self.taxi_row+1, self.taxi_col, self.pass_idx, self.dest_idx], 0))
 
         #go north = está fora da primeira linha
+        if self.taxi_row > 0:
+            sucessors.append(MeuTaxi(self.desc, [self.taxi_row-1, self.taxi_col, self.pass_idx, self.dest_idx], 1))
         
         #go east = esta fora da ultima coluna && a casa da esquerda == ':'
-        
+        if self.taxi_col_r < 4:
+            sucessors.append(MeuTaxi(self.desc, [self.taxi_row, self.taxi_col, self.pass_idx, self.dest_idx], 1))
         #go west = esta fora da primeira coluna && a casa da direita == ':'
 
         if self.loc[self.pass_idx] == self.here:
-            pass
-            # sucessors.append(MeuTaxi(self.desc, self.s, 4))
+            sucessors.append(MeuTaxi(self.desc, self.s, 4))
 
         if self.loc[self.dest_idx] == self.here:
-            pass
-            # sucessors.append(MeuTaxi(self.desc, self.s, 5))
+            sucessors.append(MeuTaxi(self.desc, self.s, 5))
         
 
         return sucessors
