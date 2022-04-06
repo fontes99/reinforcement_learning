@@ -11,14 +11,14 @@ taxi_col_r = (taxi_col*2)+1
  
 print(c)
 env.render()
-print(taxi_row, taxi_col, pass_idx, dest_idx)
+print("decode: ", taxi_row, taxi_col, pass_idx, dest_idx)
 print(c[taxi_row][taxi_col_r].decode("utf-8") )
 
-state, reward, done, info = env.step(4)
+state, reward, done, info = env.step(2)
 s = env.decode(state)
 taxi_row, taxi_col, pass_idx, dest_idx = s
 taxi_col_r = (taxi_col*2)+1
-print(taxi_row, taxi_col, pass_idx, dest_idx)
+print("decode: ", taxi_row, taxi_col, pass_idx, dest_idx)
 print(c[taxi_row][taxi_col_r].decode("utf-8") )
 
 env.render()

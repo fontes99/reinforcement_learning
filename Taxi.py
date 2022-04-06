@@ -46,9 +46,14 @@ class MeuTaxi(State):
         
         #go east = esta fora da ultima coluna && a casa da esquerda == ':'
         if self.taxi_col_r < 4:
-            sucessors.append(MeuTaxi(self.desc, [self.taxi_row, self.taxi_col, self.pass_idx, self.dest_idx], 1))
+            if self.desc[self.taxi_row][self.taxi_col_r+1].decode("utf-8") != '|':
+                sucessors.append(MeuTaxi(self.desc, [self.taxi_row, self.taxi_col+1, self.pass_idx, self.dest_idx], 2))
+        
         #go west = esta fora da primeira coluna && a casa da direita == ':'
-
+        if self.taxi_col_r > 0:
+            if self.desc[self.taxi_row][self.taxi_col_r-1].decode("utf-8") != '|':
+                sucessors.append(MeuTaxi(self.desc, [self.taxi_row, self.taxi_col-1, self.pass_idx, self.dest_idx], 3))
+        
         if self.loc[self.pass_idx] == self.here:
             sucessors.append(MeuTaxi(self.desc, self.s, 4))
 
