@@ -76,18 +76,15 @@ class MeuTaxi(State):
 
     def path(self):
 
-        path = []
-
         algorithm = sa.AEstrela()
         result = algorithm.search(self)
 
-        # if result != None:
-        #     print('Achou!')
-        #     print(result.show_path())
-        # else:
-        #     print('Nao achou solucao')
+        if result != None:
+            path_raw = result.show_path()
+            path = [int(i) for i in path_raw if i.isalnum()]
 
-        path_raw = result.show_path()
+        else:
+            print('Nao achou solucao')
 
         return path
     
@@ -101,7 +98,8 @@ class MeuTaxi(State):
 def main():
 
     env = gym.make("Taxi-v3").env
-    s = env.reset(seed=14)
+    state = env.reset(seed=14)
+    env.render()
 
     map = []
     for idx, row in enumerate(env.desc):
@@ -114,26 +112,20 @@ def main():
             new_row.append(v.decode("utf-8"))
         map.append(new_row)
 
-    state = MeuTaxi(map, env.decode(s), '')
+
+    taxi = MeuTaxi(map, env.decode(state), '')    
+
+    for a in taxi.path():
+        state, reward, done, info = env.step(a)
+        env.render()
+
+    if done:
+        print("Soube encontrar a solucao correta")
+
+    else:
+        print("Não soube encontrar a solução")
+
     
-
-    env.render()
-
-    # env = gym.make("Taxi-v3").env
-    # state = env.reset()
-    # env.render()
-    
-    # taxi = MeuTaxi(env.desc, env.decode(state))
-
-    # for a in taxi.path():
-    #     state, reward, done, info = env.step(a)
-    #     env.render()
-
-    # if done:
-    #     print("Soube encontrar a solucao correta")
-
-    # else:
-    #     print("Não soube encontrar a solução")
 
     
 
