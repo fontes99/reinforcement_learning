@@ -23,6 +23,8 @@ print(c[taxi_row][taxi_col_r].decode("utf-8") )
 
 env.render()
 
+print('1'.isalpha())
+
 # The filled square represents the taxi, which is yellow without a passenger and green with a passenger.
 # The pipe ("|") represents a wall which the taxi cannot cross.
 # R, G, Y, B are the possible pickup and destination locations. The blue letter represents the current 
