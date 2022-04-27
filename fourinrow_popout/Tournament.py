@@ -1,10 +1,13 @@
 from FourInRow import FourInRow
 from RandomPlayer import RandomPlayer
-from ManualPlayer import ManualPlayer
+from BarthPlayer import BarthPlayer
+from PedroPlayer import PedroPlayer
 
 players = [
-    RandomPlayer(),
-    ManualPlayer()]
+    # RandomPlayer(),
+    BarthPlayer(),
+    PedroPlayer()
+]
     
 points = {}
 for p in players:

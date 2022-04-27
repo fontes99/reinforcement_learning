@@ -4,6 +4,7 @@ import datetime
 from ManualPlayer import ManualPlayer
 from RandomPlayer import RandomPlayer
 from PedroPlayer import PedroPlayer
+from BarthPlayer import BarthPlayer
 
 from termcolor import colored
 
@@ -165,8 +166,14 @@ class FourInRow:
             return 'DRAW'
 
 def main():
+    # FourInRow(PedroPlayer(), BarthPlayer()).game()
+    # FourInRow(BarthPlayer(), PedroPlayer()).game()
+
+    # FourInRow(RandomPlayer(), PedroPlayer()).game()
+    # FourInRow(PedroPlayer(), RandomPlayer()).game()
+
     FourInRow(PedroPlayer(), PedroPlayer()).game()
-    # FourInRow(RandomPlayer(), RandomPlayer()).game()
+
 
 if __name__ == '__main__':
     main()

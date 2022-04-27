@@ -1,3 +1,4 @@
+import string
 from Player import Player
 import numpy as np
 from random import randint
@@ -59,44 +60,31 @@ class PedroPlayer(Player):
             for s in sucessores:
                 v = self.eval(self.opponent(player_code), s['board'])
                 if (v > 70000):
-                    return None, s['action']
-        return None, action
-            
-
-        # sucessores = self.sucessores(player_code, board)
-        # max_eval = 0
-        # action = randint(3, 5)
-        # for s in sucessores:
-        #     v = self.eval(player_code, s['board'])
-        #     print(str(s['action'])+' '+str(v))
-        #     if (v > max_eval):
-        #         max_eval = v
-        #         action = s['action']
-        # return action
+                    if type(s['action']) != str:
+                        return None, s['action']  
+                    else:
+                        return 'p', s['action'][1]
+        if type(action) != str:
+            return None, action 
+        else:
+            return 'p', action[1]
 
     def sucessores(self, player_code, board):
         suc = []
         for i in range(0,7):
             b = self.movement(player_code, board, i)
+            p = self.pop(player_code, board, i)
             if(b is not None):
                 suc.append({'board':b, 'action':i})
+            if(p is not None):
+                suc.append({'board':p, 'action':f'p{i}'})
+
         return suc
 
     def opponent(self, player):
         if player==1:
             return 2
         return 1
-
-    def domain_center(self, player, board):
-        h = np.matrix([
-            [0., 0., 0., 0., 0., 0., 0.],
-            [0., 0., 0., 0., 0., 0., 0.],
-            [0., 0., 1., 1., 1., 0., 0.],
-            [0., 0., 1., 1., 1., 0., 0.],
-            [0., 0., 1., 1., 1., 0., 0.],
-            [0., 1., 1., 1., 1., 1., 0.]])
-        
-        return np.sum(np.logical_and(board==player, h))
 
     def eval(self, player, board): 
         my_points_line = self.count_row_line(player, board)
@@ -106,9 +94,6 @@ class PedroPlayer(Player):
         my_qtd_2 = my_points_line['2'] + my_points_col['2'] + my_points_dig['2'] + my_points_dig2['2']
         my_qtd_3 = my_points_line['3'] + my_points_col['3'] + my_points_dig['3'] + my_points_dig2['3']
         my_qtd_4 = my_points_line['4'] + my_points_col['4'] + my_points_dig['4'] + my_points_dig2['4']
-        #print('my 2', str(my_qtd_2))
-        #print('my 3', str(my_qtd_3))
-        #print('my 4', str(my_qtd_4))
         sum_my_points = 100000*my_qtd_4 + 100*my_qtd_3 + my_qtd_2
 
         opponent = self.opponent(player)
@@ -119,12 +104,9 @@ class PedroPlayer(Player):
         op_qtd_2 = op_points_line['2'] + op_points_col['2'] + op_points_dig['2'] + op_points_dig2['2']
         op_qtd_3 = op_points_line['3'] + op_points_col['3'] + op_points_dig['3'] + op_points_dig2['3']
         op_qtd_4 = op_points_line['4'] + op_points_col['4'] + op_points_dig['4'] + op_points_dig2['4']
-        #print('op 2', str(op_qtd_2))
-        #print('op 3', str(op_qtd_3))
-        #print('op 4', str(op_qtd_4))
-        sum_op_points = 100000*op_qtd_4 + 10000*op_qtd_3 + op_qtd_2
+        sum_op_points = 100000*op_qtd_4 + 100*op_qtd_3 + op_qtd_2
         
-        return sum_my_points - sum_op_points + self.domain_center(player, board)
+        return sum_my_points - sum_op_points
 
     def count_row_line(self, player, board):
         retorno = {'2': 0, '3': 0, '4': 0}
@@ -181,6 +163,9 @@ class PedroPlayer(Player):
     
     def movement(self, player, board, column):
         result_board = np.matrix(board)
+
+        # if result_board[0, column] != 0: return None
+        
         for i in range(5,-2,-1):
             if (board[i,column] == 0):
                 break
@@ -189,3 +174,20 @@ class PedroPlayer(Player):
         result_board[i, column] = player
         return result_board
 
+    def pop(self, player, board, column):
+        result_board = np.matrix(board)
+        if (board[-1, column] != player): return None
+        
+        cascade = {
+            True : 0,
+            False : 0
+        }
+
+        start = True
+
+        for i in range(len(board)):
+            cascade[start] = result_board[i, column]
+            start = not start
+            result_board[i, column] = cascade[start]
+        
+        return result_board
