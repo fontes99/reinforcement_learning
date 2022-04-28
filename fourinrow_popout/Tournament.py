@@ -4,8 +4,8 @@ from BarthPlayer import BarthPlayer
 from PedroPlayer import PedroPlayer
 
 players = [
-    # RandomPlayer(),
-    BarthPlayer(),
+    RandomPlayer(),
+    # BarthPlayer(),
     PedroPlayer()
 ]
     

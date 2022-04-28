@@ -63,17 +63,23 @@ class PedroPlayer(Player):
                     if type(s['action']) != str:
                         return None, s['action']  
                     else:
-                        return 'p', s['action'][1]
+                        return 'p', int(s['action'][1])
         if type(action) != str:
             return None, action 
         else:
-            return 'p', action[1]
+            return 'p', int(action[1])
 
     def sucessores(self, player_code, board):
         suc = []
         for i in range(0,7):
+            
+            p = None
+            # if (board[len(board)-1][i] == player_code):
+            #     p = self.pop(player_code, board, i)
+
             b = self.movement(player_code, board, i)
-            p = self.pop(player_code, board, i)
+
+            
             if(b is not None):
                 suc.append({'board':b, 'action':i})
             if(p is not None):
@@ -164,8 +170,6 @@ class PedroPlayer(Player):
     def movement(self, player, board, column):
         result_board = np.matrix(board)
 
-        # if result_board[0, column] != 0: return None
-        
         for i in range(5,-2,-1):
             if (board[i,column] == 0):
                 break
@@ -176,7 +180,6 @@ class PedroPlayer(Player):
 
     def pop(self, player, board, column):
         result_board = np.matrix(board)
-        if (board[-1, column] != player): return None
         
         cascade = {
             True : 0,
